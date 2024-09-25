@@ -31,55 +31,39 @@
 
 
 ```lisp
-(defvar my-list nil)
-(setq my-list
-    (cons 'x
-          (cons 7
-                (cons 'y
-                      (cons (list 'a 'b)
-                            (list 'z (list 42 43) nil))))))
-(format t "~%1. Printing my-list")
+; task 1
+(defvar my-list)
+(setq my-list (list 'z 4 (list 'v 6) ()))
 (print my-list)
-(format t "~%2. Printing head of my-list")
-(print (car my-list))
-(format t "~%3. Printing tail of my-list")
-(print (cdr my-list))
-(format t "~%4. Printing third element of my-list")
-(print (nth 2 my-list))
-(format t "~%5. Printing last element of my-list")
+
+; task 2
+(print(car my-list))
+
+; task 3
+(print(cdr my-list))
+
+; task 4
+(print (third my-list))
+
+; task 5
 (print (car (last my-list)))
-(format t "~%6.1.1 Printing check ATOMarity of first element of my-list => 'X' ")
-(print (atom (car my-list)))
-(format t "~%6.1.2 Printing check ATOMarity of fourth element of my-list => '(A B)' ")
-(print (atom (nth 3 my-list)))
-(format t "~%6.1.3 Printing check ATOMarity of last element of my-list 'NIL' ")
-(print (atom (car (last my-list))))
-(format t "~%6.2.1 Printing check LISTParity of first element of my-list => 'X' ")
-(print (listp (car my-list)))
-(format t "~%6.2.2 Printing check LISTParity of fourth element of my-list => '(A B)' ")
-(print (listp (nth 3 my-list)))
-(format t "~%6.2.3 Printing check LISTParity of last element of my-list 'NIL' ")
-(print (listp (car (last my-list))))
-(format t "~%7.1.1 Printing check EQLarity of first element of my-list => 'X' and 'x' ")
-(print (eql (car my-list) 'x))
-(format t "~%7.1.2 Printing check EQLarity of second element of my-list => '7' and 7.0 ")
-(print (eql (second my-list) 7.0))
-(format t "~%7.1.3 Printing check EQLarity of fourth element of my-list => '(A B)' and (A B) ")
-(print (eql (nth 3 my-list) '('a 'b)))
-(format t "~%7.2.1 Printing check NULLarity of first element of my-list => 'X' ")
-(print (eql (car my-list) 'x))
-(format t "~%7.2.2 Printing check NULLarity of fourth element of my-list => '(A B)' ")
-(print (eql (nth 3 my-list) 7.0))
-(format t "~%7.2.3 Printing check NULLarity of last element of my-list 'NIL' ")
-(print (eql (car (last my-list)) '('a 'b)))
-(format t "~%7.3.1 Printing check EQUALParity of first element of my-list => 'X' and x ")
-(print (equalp (car my-list) 'x))
-(format t "~%7.3.2 Printing check EQUALParity of second element of my-list => '7' and 7.0 ")
-(print (equalp (second my-list) 7.0))
-(format t "~%7.3.3 Printing check EQLUALParity of fourth element of my-list => '(A B)' and (A B) ")
-(print (equalp (nth 3 my-list) (list 'a 'b)))
-(format t "~%8. Printing appended my-list with fourth element of my list => '(A B)' ")
-(print (append my-list (nth 3 my-list)))
+
+; task 6
+(print(atom (third my-list)))
+(print(atom (car my-list)))
+(print(atom (fourth my-list)))
+
+(print(listp (second my-list)))
+(print(listp (fifth my-list)))
+(print(listp (third my-list)))
+
+; task 7
+(print(EQUALP my-list my-list))
+(print(eq (car my-list) (car my-list)))
+
+
+; task 8
+(print(append my-list (third my-list)))
 ```
 ## Завдання за варіантом №6
 Створіть список, що відповідає структурі списку, наведеній на рисунку (за варіантом). Для цього допускається використання не більше двох форм. Номер варіанту обирається як номер у списку групи, який надсилає викладач на початку семестру (на випадок, якщо протягом семестру стануться зміни в складі групи), за модулем 8: 1 -> 1, 2 - > 2, ..., 9 -> 1, 10 -> 2, ... 
@@ -88,10 +72,36 @@
 <img src="lab-6-variant.png">
 </p>
 
-```
-
+```lisp
+(let ((x (list "A" 2 1)))
+    (print (list x "B" (cdr x) "C"))
+)
 ```
 
 ## Результат виконання програми
 ```
+; task 1
+(Z 4 (V 6) NIL)
+; task 2
+Z
+; task 3
+(4 (V 6) NIL)
+; task 4
+(V 6)
+; task 5
+NIL
+; task 6
+NIL 
+T 
+T
+NIL 
+T 
+T
+; task 7
+T 
+T
+; task 8
+(Z 4 (V 6) NIL V 6)
+; task variant 2
+(("A" 2 1) "B" (2 1) "C")
 ```
