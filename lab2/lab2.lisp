@@ -34,7 +34,7 @@
 
 (defun find-in-list (x lst)
   (cond ((null lst) nil)
-        ((equal x (car lst)) t)
+        ((eq x (car lst)) t)
         (t (find-in-list x (cdr lst)))))
 
 (defun check-list-set-intersection (name a b expected)
