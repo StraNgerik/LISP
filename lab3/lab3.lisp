@@ -1,8 +1,3 @@
-(defun my-list-length (lst)
-  (if (null lst)
-      0
-      (+ 1 (my-list-length (cdr lst)))))
-
 (defun bubble-sort-pass (A)
   (if (null (cdr A))
       A
@@ -17,7 +12,7 @@
       (bubble-sort-functional-rec (bubble-sort-pass A) (- R 1))))
 
 (defun bubble-sort-functional (A)
-  (let ((len (my-list-length A)))
+  (let ((len (list-length A)))
     (bubble-sort-functional-rec A len)))
 
 (defun check-bubble_sort_funtional (name input expected)
@@ -32,7 +27,7 @@ name))
 (check-bubble_sort_funtional "Functional Test 5 " '(10 -3 25 0 7 15) '(-3 0 7 10 15 25))
 
 (defun bubble-sort-imperative (A)
-  (let ((Answ (copy-list A)) (n (my-list-length A)))
+  (let ((Answ (copy-list A)) (n (list-length A)))
     (dotimes (R n)
       (dotimes (i (- n R 1))
         (when (> (nth i Answ) (nth (1+ i) Answ))
