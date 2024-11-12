@@ -1,15 +1,24 @@
+(defun my-list-length (lst)
+  (if (null lst)
+      0
+      (+ 1 (my-list-length (cdr lst)))))
+
 (defun bubble-sort-pass (A)
-    (if (null (cdr A))
-      A      (let ((rest (bubble-sort-pass (cdr A))))
-        (if (> (car A) (car rest))            (cons (car rest) (cons (car A) (cdr rest)))
+  (if (null (cdr A))
+      A
+      (let ((rest (bubble-sort-pass (cdr A))))
+        (if (> (car A) (car rest))
+            (cons (car rest) (cons (car A) (cdr rest)))
             (cons (car A) rest)))))
 
 (defun bubble-sort-functional-rec (A R)
-    (if (<= R 1)
-      A      (bubble-sort-functional-rec (bubble-sort-pass A) (- R 1))))
+  (if (<= R 1)
+      A
+      (bubble-sort-functional-rec (bubble-sort-pass A) (- R 1))))
 
 (defun bubble-sort-functional (A)
-  (let ((len (length A)))    (bubble-sort-functional-rec A len)))
+  (let ((len (my-list-length A)))
+    (bubble-sort-functional-rec A len)))
 
 (defun check-bubble_sort_funtional (name input expected)
 (format t "~:[FAILED~;passed~]... ~a~%"
@@ -23,13 +32,11 @@ name))
 (check-bubble_sort_funtional "Functional Test 5 " '(10 -3 25 0 7 15) '(-3 0 7 10 15 25))
 
 (defun bubble-sort-imperative (A)
-  (let ((Answ (copy-list A)) (n (list-length A)))
+  (let ((Answ (copy-list A)) (n (my-list-length A)))
     (dotimes (R n)
       (dotimes (i (- n R 1))
         (when (> (nth i Answ) (nth (1+ i) Answ))
-          (let ((tmp (nth i Answ)))
-            (rplaca (nthcdr i Answ) (nth (1+ i) Answ))
-            (rplaca (nthcdr (1+ i) Answ) tmp)))))
+          (rotatef (nth i Answ) (nth (1+ i) Answ)))))
     Answ))
 
 (defun check-bubble-sort-imperative (name input expected)
