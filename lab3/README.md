@@ -20,17 +20,21 @@
 ## Лістинг функції bubble-sort-functional
 ```lisp
 (defun bubble-sort-pass (A)
-    (if (null (cdr A))
-      A      (let ((rest (bubble-sort-pass (cdr A))))
-        (if (> (car A) (car rest))            (cons (car rest) (cons (car A) (cdr rest)))
+  (if (null (cdr A))
+      A
+      (let ((rest (bubble-sort-pass (cdr A))))
+        (if (> (car A) (car rest))
+            (cons (car rest) (cons (car A) (cdr rest)))
             (cons (car A) rest)))))
 
 (defun bubble-sort-functional-rec (A R)
-    (if (<= R 1)
-      A      (bubble-sort-functional-rec (bubble-sort-pass A) (- R 1))))
+  (if (<= R 1)
+      A
+      (bubble-sort-functional-rec (bubble-sort-pass A) (- R 1))))
 
 (defun bubble-sort-functional (A)
-  (let ((len (length A)))    (bubble-sort-functional-rec A len)))
+  (let ((len (list-length A)))
+    (bubble-sort-functional-rec A len)))
 ```
 ## Лістинг функції bubble-sort-imperative
 ```lisp
@@ -39,9 +43,7 @@
     (dotimes (R n)
       (dotimes (i (- n R 1))
         (when (> (nth i Answ) (nth (1+ i) Answ))
-          (let ((tmp (nth i Answ)))
-            (rplaca (nthcdr i Answ) (nth (1+ i) Answ))
-            (rplaca (nthcdr (1+ i) Answ) tmp)))))
+          (rotatef (nth i Answ) (nth (1+ i) Answ)))))
     Answ))
 ```
 ### Тестові набори для bubble-sort-functional
