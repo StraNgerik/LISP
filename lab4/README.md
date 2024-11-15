@@ -75,6 +75,7 @@ add-prev-reducer при передачі у reduce визначаються ро
 наприклад, необхідно чітко визначити, якими мають бути значення ключових параметрів
 функції reduce from-end та initial-value ). transform має виконатись мінімальну
 кількість разів.
+```lisp
 CL-USER> (reduce (add-prev-reducer)
 '(1 2 3)
 :from-end ...
