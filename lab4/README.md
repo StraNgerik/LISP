@@ -89,18 +89,24 @@ CL-USER> (reduce (add-prev-reducer :transform #'1+)
 ```
 ## Лістинг реалізації другої частини завдання
 ```lisp
-(defun add-prev-reducer (acc elem &optional transform)
-  (let ((processed-elem (if transform (funcall transform elem) elem)))
-  (append acc (list (cons processed-elem (car (car (last acc))))))))
+(defun add-prev-reducer (&optional (transform #'identity))
+"Обмеження:
+- `:initial-value` для `reduce` має бути списком, якщо передано.
+- Працює коректно з `:from-end nil`."
+  (lambda (acc elem)
+    (let* ((processed-elem (funcall transform elem))
+           (prev (if (null acc) nil (caar acc))))
+      (cons (cons processed-elem prev) acc))))
 ```
 ### Тестові набори та утиліти другої частини
 ```lisp
 (defun check-add-prev-reducer (name input expected &key initial-value from-end transform)
-  (let ((result (if transform
-                    (reduce (lambda (acc elem) (add-prev-reducer acc elem transform))
-                            input :initial-value initial-value :from-end from-end)
-                    (reduce #'add-prev-reducer input :initial-value initial-value :from-end from-end))))
-    (format t "~:[FAILED~;passed~]... ~a~%" (equal result expected) name)))
+  (let ((transform (or transform #'identity)))
+    (let ((result (nreverse (reduce (add-prev-reducer transform)
+                          input
+                          :initial-value initial-value
+                          :from-end from-end))))
+      (format t "~:[FAILED~;passed~]... ~a~%" (equal result expected) name))))
 
 (check-add-prev-reducer "Prev-reducer Test 1" '(1 2 3) '((1 . nil) (2 . 1) (3 . 2)) :initial-value nil :from-end nil)
 (check-add-prev-reducer "Prev-reducer Test 2" '(1 2 3) '((2 . nil) (3 . 2) (4 . 3)) :initial-value nil :from-end nil :transform #'1+)
